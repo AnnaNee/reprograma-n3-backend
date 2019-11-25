@@ -1,0 +1,6 @@
+## Exercício 2 - Treino retroativo
+
+Agora que conseguimos treinar nossos pokémons a partir de uma data de início e fim, precisamos considerar o nível que o pokémon já tem.
+Exemplo:
+
+Pokémon de nível 1 + 20 novos níveis = 21

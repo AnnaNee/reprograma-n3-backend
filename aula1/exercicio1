@@ -1,0 +1,10 @@
+## Exercício 01 - Treinar Pokémons
+
+Você deve criar um novo método que permita treinar o nível de um Pokémon dado os seguintes inputs:
+- Data de início em formato timestap (2019-11-25T19:25:04.861Z)
+- Data de fim em formato timestamp (2019-11-25T19:25:04.861Z)
+
+Entre uma data e outra, calcule a diferença em horas. A cada 4 horas de treino, 1 nível deve ser adicionado ao treino.
+Para o cálculo entre as datas, utilize a fórmula abaixo:
+
+`(Math.abs(new Date(dataInicio) - new Date(dataFim)) / 3600000) / 4`
