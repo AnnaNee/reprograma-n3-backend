@@ -8,7 +8,7 @@ function connect () {
       if(error) {
         console.error("Ocorreu um erro: ", error)
       } else {
-        console.log("Conectado no mongoDB.")
+        console.info("Conectado no mongoDB.")
       }
     }
   );

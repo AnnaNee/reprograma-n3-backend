@@ -13,6 +13,5 @@ app.get('/', (request, response) => {
   response.send('Olá, mundo!')
 })
 
-
 app.listen(PORT)
 console.info(`Rodando na porta ${PORT}`)

@@ -68,7 +68,7 @@ const update = (request, response) => {
     options,
     (error, pokemon) => {
       if (error) {
-        return response.status(500).sned(error)
+        return response.status(500).send(error)
       }
 
       if (pokemon) {
