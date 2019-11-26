@@ -2,9 +2,9 @@
 
 Crie uma collection de Treinadores com a seguinte estrutura:
 
-- Nome
-- Email
-- Foto
+- Nome (String)
+- Email (String)
+- Foto (String)
 
 Em seguida, crie endpoints com os seguintes recursos:
 
