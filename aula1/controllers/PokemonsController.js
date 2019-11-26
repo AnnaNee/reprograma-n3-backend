@@ -4,9 +4,9 @@ const pokemonsModel = require('../models/PokemonsSchema')
 connect()
 
 const calcularNivel = (inicio, fim, nivelAtual) => {
-  const diff = Math.abs(new Date(inicio) - new Date(fim)) / 3600000
+  const novoNivel = (Math.abs(new Date(inicio) - new Date(fim)) / 3600000) / 4
 
-  return (diff / 4) + nivelAtual;
+  return novoNivel + nivelAtual;
 }
 
 const getAll = (request, response) => {
