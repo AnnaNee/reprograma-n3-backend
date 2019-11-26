@@ -80,10 +80,39 @@ const update = (request, response) => {
   )
 }
 
+const updateNivel = (request, response) => {
+  const id = request.params.id
+  // const pokemonUpdate = request.body
+  const dataInicio = new Date('2019-11-25 10:30:04');
+  const dataFim = new Date('2019-11-25 20:25:04');
+  const options = { new: true }
+ const resultado = (Math.abs(dataInicio - dataFim)) / 3600000 / 4 
+
+    pokemonsModel.findByIdAndUpdate(
+    id,
+    {nivel: resultado},
+    options,
+    
+    (error, pokemon) => {
+      if (error) {
+        return response.status(500).send(error)
+      }
+
+      if (pokemon) {
+        return response.status(200).send(pokemon)
+      }
+
+      return response.status(404).send('Pokémon não encontrado.')
+    }
+     
+    )}
+
+
 module.exports = {
   getAll,
   getById,
   add,
   remove,
-  update
+  update,
+  updateNivel
 }
