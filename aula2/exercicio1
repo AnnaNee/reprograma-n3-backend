@@ -1,0 +1,15 @@
+## Exercício 01 - Collection de Treinadores
+
+Crie uma collection de Treinadores com a seguinte estrutura:
+
+- Nome (String)
+- Email (String)
+- Foto (String)
+
+Em seguida, crie endpoints com os seguintes recursos:
+
+- Criar um treinador
+- Selecionar um único treinador
+- Selecionar todos os treinadores
+- Modificar um treinador
+- Remover um treinador
