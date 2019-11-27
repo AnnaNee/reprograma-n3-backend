@@ -1,0 +1,15 @@
+## Manipular Pokémons através de Treinadores
+
+Nossa API agora tem uma nova entidade: Treinadores.
+Além de podermos criar, editar e remover treinadores, existe uma nova operação: criar um pokémon para um treinador.
+Mas além de criarmos um pokémon, também queremos performar as mesmas ações de antes (editar, remover, treinar).
+Para isso, reescreva os seguintes endpoints de forma que eu consiga transformar pokémons que pertence a treinadores:
+
+- Retornar um pokémon específico de um treinador
+- Retornar uma lista com todos os pokémons de um treinador específico
+- Treinar um pokémon específico de um treinador
+
+## Desafio:
+
+Possibilidade de atualizar os dados de um pokémon específico de um treinador. Dica: pesquisem sobre o método
+findOneAndUpdate do Mongoose. (:

@@ -1,0 +1,72 @@
+## Tipos de Relacionamentos
+
+Imagine que existam duas entidades: Pokémons e Treinadores. Dado isso, os relacionamentos possíveis seriam:
+
+- One-to-one: Um pokémon tem um treinador ou um treinador de um pokémon
+- Many-to-many: Vários pokémons tem vários treinadores e vários treinadores tem vários pokémons
+- One-to-many: Um pokémon tem vários treinadores ou um treinador tem vários pokémons
+
+## Bancos de dados relacionais
+
+### One-to-one
+
+Tabela: pokemons
+pokemon { id: '123', nome: 'Charmander', nivel: 1, foto: 'img.jpg' }
+
+Tabela: treinadores
+treinador { id: '321', nome: 'Letícia', foto: 'img.jpg', pokemonId: '123' }
+
+### Many-to-many
+
+Tabela: pokemons
+pokemon { id: '123', nome: 'Charmander', nivel: 1, foto: 'img.jpg }
+pokemon { id: '456', nome: 'Pikachu', nivel: 1, foto: 'img.jpg }
+
+Tabela: treinadores
+treinador { id: '321', nome: 'Letícia', foto: 'img.jpg' }
+treinador { id: '654', nome: 'Anna', foto: 'img.jpg' }
+
+Tabela: treinadores_pokemons
+treinadores_pokemons { pokemonId: '123', treinadorId: 321 }
+treinadores_pokemons { pokemonId: '123', treinadorId: 654 }
+treinadores_pokemons { pokemonId: '456', treinadorId: 321 }
+treinadores_pokemons { pokemonId: '456', treinadorId: 654 }
+
+### One-to-many
+
+Tabela: pokemons
+pokemon { id: '123', nome: 'Charmander', nivel: 1, foto: 'img.jpg }
+pokemon { id: '456', nome: 'Pikachu', nivel: 1, foto: 'img.jpg }
+
+Tabela: treinadores
+treinador { id: '321', nome: 'Letícia', foto: 'img.jpg' }
+treinador { id: '654', nome: 'Anna', foto: 'img.jpg' }
+
+Tabela: treinadores_pokemons
+treinadores_pokemons { pokemonId: '123', treinadorId: 321 }
+treinadores_pokemons { pokemonId: '456', treinadorId: 321 }
+
+## Bancos de dados não-relacionais
+
+### Embedded Documents
+
+Collection: treinadores
+treinador {
+  id: '321',
+  nome: 'Letícia',
+  foto: 'img.jpg',
+  pokemons: [
+    { id: '123', nome: 'Charmander', nivel: 1, foto: 'img.jpg },
+    { id: '456', nome: 'Pikachu', nivel: 1, foto: 'img.jpg }
+  ]
+}
+
+treinador {
+  id: '321',
+  nome: 'Letícia',
+  foto: 'img.jpg',
+  pokemons: [
+    { id: '789', nome: 'Gardevoir', nivel: 56, foto: 'img.jpg },
+    { id: '987', nome: 'Pikachu', nivel: 2, foto: 'img.jpg }
+  ]
+}
