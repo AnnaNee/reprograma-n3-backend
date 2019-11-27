@@ -8,6 +8,6 @@ router.post ('', controller.add)
 router.get('/:id', controller.getById)
 router.patch('/:id', controller.update)
 router.delete('/:id', controller.remove)
-router.patch('/treino/:id', controller.updateTreino)
+router.patch('/treinar/:id', controller.treinar)
 
 module.exports = router

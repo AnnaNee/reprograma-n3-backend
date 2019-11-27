@@ -1,5 +1,5 @@
 {
-  "name": "reprograma-coding-dojo",
+  "name": "reprograma-n3-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,6 +17,6 @@
     "mongoose": "5.5.14"
   },
   "devDependencies": {
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.1"
   }
 }
