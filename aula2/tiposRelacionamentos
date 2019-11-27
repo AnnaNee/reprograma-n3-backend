@@ -48,6 +48,8 @@ treinadores_pokemons { pokemonId: '456', treinadorId: 321 }
 
 ## Bancos de dados não-relacionais
 
+### Embedded Documents
+
 Collection: treinadores
 treinador {
   id: '321',
@@ -64,7 +66,7 @@ treinador {
   nome: 'Letícia',
   foto: 'img.jpg',
   pokemons: [
-    { id: '123', nome: 'Gardevoir', nivel: 56, foto: 'img.jpg },
-    { id: '456', nome: 'Pikachu', nivel: 2, foto: 'img.jpg }
+    { id: '789', nome: 'Gardevoir', nivel: 56, foto: 'img.jpg },
+    { id: '987', nome: 'Pikachu', nivel: 2, foto: 'img.jpg }
   ]
 }

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const MONGO_URL = 'mongodb://localhost:27017/pokemonsApi';
+const MONGO_URL = 'mongodb://localhost:27017/pokemonsApi2';
 
 function connect () {
   mongoose.connect(MONGO_URL,

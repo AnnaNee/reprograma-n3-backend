@@ -1,5 +1,6 @@
 const { connect } = require('../models/Repository')
 const treinadoresModel = require('../models/TreinadoresSchema')
+const { pokemonsModel } = require('../models/PokemonsSchema')
 
 connect()
 
@@ -80,10 +81,28 @@ const update = (request, response) => {
   )
 }
 
+const addPokemon = async (request, response) => {
+  const treinadorId = request.params.treinadorId
+  const pokemon = request.body
+  const options = { new: true }
+  const novoPokemon = new pokemonsModel(pokemon)
+  const treinador = await treinadoresModel.findById(treinadorId)
+
+  treinador.pokemons.push(novoPokemon)
+  treinador.save((error) => {
+    if (error) {
+      return response.status(500).send(error)
+    }
+
+    return response.status(201).send(treinador)
+  })
+}
+
 module.exports = {
   getAll,
   getById,
   add,
   remove,
   update,
+  addPokemon
 }
