@@ -7,6 +7,7 @@ const TreinadoresSchema = new Schema({
   email: { type: String, required: true },
   foto: { type: String, required: true },
   pokemons: [PokemonsSchema],
+  senha: { type: String, required: true },
 })
 
 const treinadoresModel = mongoose.model('treinadores', TreinadoresSchema);
