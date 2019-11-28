@@ -121,7 +121,6 @@ const getPokemonByTreinador = async (request, response) => {
     const pokemonId = request.params.pokemonId
 
     const treinador = await treinadoresModel.findById(treinadorId)
-    // const pokemon = treinador.pokemons.find((pokemon) => pokemonId == pokemon._id)
     
     treinador.pokemons.find((error, pokemon) =>  {
     
@@ -131,15 +130,22 @@ const getPokemonByTreinador = async (request, response) => {
   
       return response.status(500).send(error)
     })
-    // return treinadoresModel.findById(pokemon, (error, treinador) => {
-    // if (error) {
-    //     return response.status(500).send(error)
-    //   }
-  
-    //   return response.status(200).send(treinador)
-    // })   
 }
 
+const getPokemons = async (request, response) => {
+  const treinadorId = request.params.treinadorId
+
+  const treinador = await treinadoresModel.findById(treinadorId)
+
+  treinador.pokemons.find((error, pokemons) =>  {
+    
+    if (error) {
+      return response.status(500).send(error)
+    }
+
+    return response.status(200).send(pokemons)
+  })
+}
 module.exports = {
   getAll,
   getById,
@@ -148,5 +154,6 @@ module.exports = {
   update,
   addPokemon,
   treinarPokemon,
-  getPokemonByTreinador
+  getPokemonByTreinador,
+  getPokemons
 }
