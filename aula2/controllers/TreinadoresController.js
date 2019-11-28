@@ -87,11 +87,11 @@ const update = (request, response) => {
   )
 }
 
-const addPokemon = (request, response) => {
+const addPokemon = async (request, response) => {
   const treinadorId = request.params.treinadorId
   const pokemon = request.body
   const novoPokemon = new pokemonsModel(pokemon)
-  const treinador = treinadoresModel.findById(treinadorId)
+  const treinador = await treinadoresModel.findById(treinadorId)
   console.log(treinador, 'TAKI')
   treinador.pokemons.push(novoPokemon)
   treinador.save((error) => {
