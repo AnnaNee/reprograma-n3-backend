@@ -84,7 +84,6 @@ const update = (request, response) => {
 const addPokemon = async (request, response) => {
   const treinadorId = request.params.treinadorId
   const pokemon = request.body
-  const options = { new: true }
   const novoPokemon = new pokemonsModel(pokemon)
   const treinador = await treinadoresModel.findById(treinadorId)
 
@@ -98,11 +97,56 @@ const addPokemon = async (request, response) => {
   })
 }
 
+const treinarPokemon = async (request, response) => {
+  const treinadorId = request.params.treinadorId
+  const pokemonId = request.params.pokemonId
+  const inicio = request.body.inicio
+  const fim = request.body.fim
+  const treinador = await treinadoresModel.findById(treinadorId)
+  const pokemon = treinador.pokemons.find((pokemon) => pokemonId == pokemon._id)
+  const novoNivel = calcularNivel(inicio, fim, pokemon.nivel)
+
+  pokemon.nivel = novoNivel
+  treinador.save((error) => {
+    if (error) {
+      return response.status(500).send(error)
+    }
+
+    return response.status(200).send(treinador)
+  })
+}
+
+const getPokemonByTreinador = async (request, response) => {
+    const treinadorId = request.params.treinadorId
+    const pokemonId = request.params.pokemonId
+
+    const treinador = await treinadoresModel.findById(treinadorId)
+    // const pokemon = treinador.pokemons.find((pokemon) => pokemonId == pokemon._id)
+    
+    treinador.pokemons.find((error, pokemon) =>  {
+    
+      if (pokemonId == pokemon._id) {
+        return response.status(200).send(pokemons)
+      }
+  
+      return response.status(500).send(error)
+    })
+    // return treinadoresModel.findById(pokemon, (error, treinador) => {
+    // if (error) {
+    //     return response.status(500).send(error)
+    //   }
+  
+    //   return response.status(200).send(treinador)
+    // })   
+}
+
 module.exports = {
   getAll,
   getById,
   add,
   remove,
   update,
-  addPokemon
+  addPokemon,
+  treinarPokemon,
+  getPokemonByTreinador
 }
