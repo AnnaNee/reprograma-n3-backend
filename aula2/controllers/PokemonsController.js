@@ -1,5 +1,5 @@
 const { connect } = require('../models/Repository')
-const pokemonsModel = require('../models/PokemonsSchema')
+const { pokemonsModel } = require('../models/PokemonsSchema')
 
 connect()
 
