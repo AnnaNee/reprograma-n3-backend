@@ -5,6 +5,12 @@ const bcrypt = require('bcryptjs')
 
 connect()
 
+const calcularNivel = (inicio, fim, nivelAtual) => {
+  const diff = Math.abs(new Date(inicio) - new Date(fim)) / 3600000
+
+  return (diff / 4) + nivelAtual;
+}
+
 const getAll = (request, response) => {
   treinadoresModel.find((error, treinadores) => {
     if (error) {
