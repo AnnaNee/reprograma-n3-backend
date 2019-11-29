@@ -1,6 +1,7 @@
 const { connect } = require('../models/Repository')
 const treinadoresModel = require('../models/TreinadoresSchema')
 const { pokemonsModel } = require('../models/PokemonsSchema')
+const bcrypt = require('bcryptjs')
 
 connect()
 
@@ -31,6 +32,9 @@ const getById = (request, response) => {
 }
 
 const add = (request, response) => {
+  const senhaCriptografada = bcrypt.hashSync(request.body.senha)
+  request.body.senha = senhaCriptografada
+  
   const novoTreinador = new treinadoresModel(request.body)
 
   novoTreinador.save((error) => {
@@ -118,7 +122,7 @@ const treinarPokemon = async (request, response) => {
 
 const getPokemonByTreinador = async (request, response) => {
     const treinadorId = request.params.treinadorId
-    const pokemonId = request.params.pokemonId
+    const pokemonId = request.params.pokemonId 
 
     const treinador = await treinadoresModel.findById(treinadorId)
     
@@ -133,19 +137,15 @@ const getPokemonByTreinador = async (request, response) => {
 }
 
 const getPokemons = async (request, response) => {
-  const treinadorId = request.params.treinadorId
+  const treinadorId = request.params.id
 
   const treinador = await treinadoresModel.findById(treinadorId)
 
-  treinador.pokemons.find((error, pokemons) =>  {
-    
-    if (error) {
-      return response.status(500).send(error)
-    }
-
-    return response.status(200).send(pokemons)
-  })
-}
+  if (treinador){
+    return response.status(200).send(treinador.pokemons)
+  }
+    return response.status(404).send('Treinador não encontrado.')
+}  
 module.exports = {
   getAll,
   getById,
