@@ -11,7 +11,7 @@ const calcularNivel = (inicio, fim, nivelAtual) => {
   return (diff / 4) + nivelAtual;
 }
 
-const getAll = (request, response) => {
+const getAll = (request, response) => { 
   treinadoresModel.find((error, treinadores) => {
     if (error) {
       return response.status(500).send(error)
@@ -38,6 +38,9 @@ const getById = (request, response) => {
 }
 
 const add = (request, response) => {
+  if (!request.body.senha){
+    return response.status(400).send('Coloque uma senha!')
+  }
   const senhaCriptografada = bcrypt.hashSync(request.body.senha)
   request.body.senha = senhaCriptografada
   
