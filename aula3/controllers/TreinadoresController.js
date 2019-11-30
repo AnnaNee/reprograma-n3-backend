@@ -38,6 +38,9 @@ const getById = (request, response) => {
 }
 
 const add = (request, response) => {
+  if (!request.body.senha) {
+    return response.status(400).send('bota a senha aí')
+  }
   const senhaCriptografada = bcrypt.hashSync(request.body.senha)
   request.body.senha = senhaCriptografada
   const novoTreinador = new treinadoresModel(request.body)
@@ -49,6 +52,19 @@ const add = (request, response) => {
 
     return response.status(201).send(novoTreinador)
   })
+}
+
+const login = async (request, response) => {
+  const email = request.body.email
+  const senha = request.body.senha
+  const treinador = await treinadoresModel.findOne({ email })
+  const senhaValida = bcrypt.compareSync(senha, treinador.senha)
+
+  if (senhaValida) {
+    return response.status(200).send('Usuário logado')
+  }
+
+  return response.status(401).send('Usuário ou senha inválidos')
 }
 
 const remove = (request, response) => {
@@ -184,5 +200,6 @@ module.exports = {
   addPokemon,
   treinarPokemon,
   getPokemonById,
-  updatePokemon
+  updatePokemon,
+  login
 }
