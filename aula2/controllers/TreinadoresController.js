@@ -60,12 +60,16 @@ const login = async (request, response) => {
   const senha = request.body.senha
   const treinador = await treinadoresModel.findOne({email})
 
-  const senhaValida =  bcrypt.compareSync(senha, treinador.senha )
+  if (!treinador){
+    return response.status(401).send('E-mail inválido.')
+  }
 
-  if(senhaValida){
+  const senhaValida =  bcrypt.compareSync(senha, treinador.senha)
+
+   if(senhaValida){
     return response.status(200).send('Usuário logado.')
   }
-    return response.status(401).send('Usuário ou senha inválidos.')
+    return response.status(401).send('Senha inválida.')
 }
 
 const remove = (request, response) => {
@@ -86,13 +90,20 @@ const remove = (request, response) => {
 
 const update = (request, response) => {
   const id = request.params.id
-  const treinadorUpdate = request.body
-  const options = { new: true }
+  const treinador = request.body
 
   treinadoresModel.findByIdAndUpdate(
     id,
-    treinadorUpdate,
-    options,
+    treinador,
+    { $set:
+        {
+          'treinadores.$.nome': treinador.nome,
+          'treinadores.$.foto': treinador.foto,
+          'treinadores.$.email': treinador.email,
+          'treinadores.$.pokemons': treinador.pokemons
+        }
+    },
+    { new: true },
     (error, treinador) => {
       if (error) {
         return response.status(500).sned(error)
@@ -168,6 +179,29 @@ const getPokemons = async (request, response) => {
   }
     return response.status(404).send('Treinador não encontrado.')
 }  
+
+const updatePokemon = (request, response) => {
+  const treinadorId = request.params.treinadorId
+  const pokemonId = request.params.pokemonId
+  const pokemon = request.body
+
+  treinadoresModel.findOneAndUpdate(
+    { _id: treinadorId, 'pokemons.$._id': pokemonId },
+    { $set:
+        {
+          'pokemons.$.nome': pokemon.nome,
+          'pokemons.$.foto': pokemon.foto
+        }
+    },
+    { new: true },
+    (error, treinador) => {
+      if (error) {
+        return response.status(500).send(error)
+      }
+
+      return response.status(200).send(treinador)
+    }
+  )
 module.exports = {
   getAll,
   getById,
