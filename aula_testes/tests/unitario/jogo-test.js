@@ -1,5 +1,4 @@
 const chai = require('chai')
-const mocha = require('mocha')
 const jogo = require('../../jogo')
 const expect = chai.expect
 
