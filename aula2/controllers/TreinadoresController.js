@@ -47,12 +47,25 @@ const add = (request, response) => {
   const novoTreinador = new treinadoresModel(request.body)
 
   novoTreinador.save((error) => {
-    if (error) {
+    if (error) { 
       return response.status(500).send(error)
     }
 
     return response.status(201).send(novoTreinador)
   })
+}
+
+const login = async (request, response) => {
+  const email = request.body.email
+  const senha = request.body.senha
+  const treinador = await treinadoresModel.findOne({email})
+
+  const senhaValida =  bcrypt.compareSync(senha, treinador.senha )
+
+  if(senhaValida){
+    return response.status(200).send('Usuário logado.')
+  }
+    return response.status(401).send('Usuário ou senha inválidos.')
 }
 
 const remove = (request, response) => {
@@ -164,5 +177,6 @@ module.exports = {
   addPokemon,
   treinarPokemon,
   getPokemonByTreinador,
-  getPokemons
+  getPokemons,
+  login
 }

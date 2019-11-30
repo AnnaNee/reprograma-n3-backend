@@ -13,6 +13,7 @@ router.post('/:treinadorId/pokemons', controller.addPokemon)
 router.patch('/:treinadorId/pokemons/:pokemonId/treinar', controller.treinarPokemon)
 router.get('/:treinadorId/pokemons/:pokemonId/', controller.getPokemonByTreinador)
 router.get('/:id/pokemons', controller.getPokemons)
+router.post('/login', controller.login)
 
 
 module.exports = router
