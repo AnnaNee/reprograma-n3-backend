@@ -95,15 +95,7 @@ const update = (request, response) => {
   treinadoresModel.findByIdAndUpdate(
     id,
     treinador,
-    { $set:
-        {
-          'treinadores.$.nome': treinador.nome,
-          'treinadores.$.foto': treinador.foto,
-          'treinadores.$.email': treinador.email,
-          'treinadores.$.pokemons': treinador.pokemons
-        }
-    },
-    { new: true },
+    options,
     (error, treinador) => {
       if (error) {
         return response.status(500).sned(error)
