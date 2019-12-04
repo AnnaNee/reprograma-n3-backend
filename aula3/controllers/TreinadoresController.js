@@ -155,7 +155,7 @@ const getPokemons = async (request, response) => {
 
   const token = authHeader.split(' ')[1]
 
-  jwt.verify(token, CHAVE_PUBLICA, (error, decoded) => {
+  jwt.verify(token, CHAVE_PRIVADA, (error, decoded) => {
     if (error) {
       autenticado = false
     } else {
