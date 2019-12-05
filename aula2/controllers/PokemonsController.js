@@ -1,5 +1,10 @@
+<<<<<<< HEAD
  const { connect } = require('../models/Repository')
 const pokemonsModel = require('../models/PokemonsSchema')
+=======
+const { connect } = require('../models/Repository')
+const { pokemonsModel } = require('../models/PokemonsSchema')
+>>>>>>> 98cc28c52e0f481cc63be9b5764caf0e2671d71b
 
 connect()
 
