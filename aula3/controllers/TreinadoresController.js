@@ -13,24 +13,6 @@ const calcularNivel = (inicio, fim, nivelAtual) => {
   return (diff / 4) + nivelAtual;
 }
 
-const montarPokemonUpdateBody = async (body) => {
-  let setBody = {}
-
-  if (body.nome) {
-    setBody['pokemons.$.nome'] = body.nome
-  }
-
-  if (body.foto) {
-    setBody['pokemons.$.foto'] = body.foto
-  }
-
-  return (
-    {
-      $set: setBody
-    }
-  )
-}
-
 const getAll = (request, response) => {
   treinadoresModel.find((error, treinadores) => {
     if (error) {
@@ -159,15 +141,19 @@ const getPokemons = async (request, response) => {
   })
 }
 
-const updatePokemon = async (request, response) => {
+const updatePokemon = (request, response) => {
   const treinadorId = request.params.treinadorId
   const pokemonId = request.params.pokemonId
   const options = { new: true }
-  const updateBody = await montarPokemonUpdateBody(request.body)
 
   treinadoresModel.findOneAndUpdate(
     { _id: treinadorId, 'pokemons._id': pokemonId },
-    updateBody,
+    {
+      $set: {
+        'pokemons.$.nome': request.body.nome,
+        'pokemons.$.foto': request.body.foto
+      }
+    },
     options,
     (error, treinador) => {
       if (error) {
