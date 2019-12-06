@@ -18,7 +18,40 @@ const autenticar = (request, response, next) => {
     if (error) {
       autenticado = false
     } else {
-      autenticado = true
+      if (decoded.grupo == 'comum' || decoded.grupo == 'admin') {
+        autenticado = true
+      } else {
+        autenticado = false
+      }
+    }
+  })
+
+  if (!autenticado) {
+    return response.status(403).send('Acesso negado.')
+  }
+
+  next()
+}
+
+const autenticarAdmin = (request, response, next) => {
+  const authHeader = request.get('authorization')
+  let autenticado = false
+
+  if (!authHeader) {
+    return response.status(401).send('Você precisa fazer login!')
+  }
+
+  const token = authHeader.split(' ')[1]
+
+  jwt.verify(token, SEGREDO, (error, decoded) => {
+    if (error) {
+      autenticado = false
+    } else {
+      if (decoded.grupo == 'admin') {
+        autenticado = true
+      } else {
+        autenticado = false
+      }
     }
   })
 
@@ -30,7 +63,8 @@ const autenticar = (request, response, next) => {
 }
 
 router.get('', autenticar, controller.getAll)
-router.post('', controller.add)
+router.post('', autenticarAdmin, controller.add)
+router.post('/admin', autenticarAdmin, controller.addAdmin)
 router.get('/:id', autenticar, controller.getById)
 router.patch('/:id', autenticar, controller.update)
 router.delete('/:id', autenticar, controller.remove)
